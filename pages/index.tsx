@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import {createClient} from '@supabase/supabase-js'
-import handler from './api/hello';
+import handler from './api/revalidate';
 
 
 export async function  getStaticProps(){
