@@ -57,8 +57,6 @@ export default function Galley({images}:{images:Image[]}){
 function BlurImage({image}:{image:Image}){
 
   const[isLoading,setLoading] = useState(true);
-    
-  console.log(image.imageSrc)
 
   return(
       <a href={image.href} className='group'>
