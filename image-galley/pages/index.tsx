@@ -40,33 +40,36 @@ type Image = {
 
 
 
-export default function Galley(){
+export default function Galley({images}:{images:Image[]}){
    return(
      <div className='max-w-2xl   mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
        <div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'>
-         <BlurImage />
+        
+         {images.map((image)=>(
+              <BlurImage  key={image.id} image={image}/>
+         ))}
        </div>
      </div>
    )
 }
 
 
-function BlurImage(){
+function BlurImage({image}:{image:Image}){
 
   const[isLoading,setLoading] = useState(true);
 
 
   return(
-      <a href="#" className='group'>
+      <a href={image.href} className='group'>
         <div className='aspect-w-1 aspect-h-1 xl:aspect-h-8 xl:aspect-w-7 w-full overflow-hidden rounded-lg bg-gray-200'>
           <Image alt=""
-          src="https://bit.ly/placeholder-img"
+          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687"
           layout='fill' 
           objectFit='cover' 
           className= {cn('group-hover:opacity-75 duration-700  ease-in-out',isLoading ? 'grayscale blur-2xl scale-110' : 'grayscale blur-0 scale-110' )} />
         </div>  
-        <h3>Lee Robinson</h3>
-        <p>@leeerob</p>
+        <h3>{image.name}</h3>
+        <p>{image.username}</p>
       </a>
   )
 }
