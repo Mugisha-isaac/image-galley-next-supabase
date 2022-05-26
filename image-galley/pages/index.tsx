@@ -1,13 +1,43 @@
-import { createNavigationContainerRef } from '@react-navigation/native'
-import type { NextPage } from 'next'
-import Head from 'next/head'
+
 import Image from 'next/image'
 import { useState } from 'react'
 
+import {createClient} from '@supabase/supabase-js'
+import handler from './api/hello';
+
+
+export async function  getStaticProps(){
+  const supabaseAdmin  = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    process.env.SUPERBASE_SERVICE_ROLE_KEY || ''
+    );  
+
+  const {data} = await supabaseAdmin.from('images').select('*').order('id');
+    
+  return {
+    props:{
+      images: data
+    }
+  }
+}
+
+
+  
 
 function cn(...classes:string[]){
   return classes.filter(Boolean).join(' ');
 }
+
+
+type Image = {
+  id:number,
+  href:string,
+  imageSrc:string,
+  name:string,
+  username:string
+}
+
+
 
 
 export default function Galley(){
